@@ -84,7 +84,10 @@
                         @Html.DisplayFor(modelItem => item.LogDate)
                     </td>
                     <td>
-                        @Html.DisplayFor(modelItem => item.LogTime)
+                        @{
+                            var _LogTime = item.LogTime.ToString().Substring(0, 8);
+                        }
+                        @_LogTime
                     </td>
                     <td>
                         @Html.DisplayFor(modelItem => item.FiscalYear)
@@ -105,10 +108,12 @@
                         @Html.DisplayFor(modelItem => item.OTPMessage)
                     </td>
                     <td>
-                        @Html.DisplayFor(modelItem => item.Request)
+                        <span style="display: none;">@item.Request</span>
+                        <button class="btn  btn-primary" type="button" onclick="ShowModelPopup(this)" data-type="Request Json">View Request</button>
                     </td>
                     <td>
-                        @Html.DisplayFor(modelItem => item.Response)
+                        <span style="display: none;">@item.Response</span>
+                        <button class="btn  btn-primary" type="button" onclick="ShowModelPopup(this)" data-type="Response Json">View Response</button>
                     </td>
                     @*<td>
                         <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
@@ -119,6 +124,23 @@
             }
         </tbody>
     </table>
+</div>
+
+<!-- Modal -->
+<div class="modal fade" id="ModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="ModalCenterTitle"></h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <p id="ModalCenterContent" style="word-wrap: break-word; overflow-wrap: break-word;"></p>
+            </div>
+        </div>
+    </div>
 </div>
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
@@ -167,14 +189,22 @@
                 detail += '<td>' + resp.channelId + '</td>';
                 detail += '<td>' + resp.profileNumber + '</td>';
                 detail += '<td>' + resp.otpMessage + '</td>';
-                detail += '<td>' + resp.request + '</td>';
-                detail += '<td>' + resp.response + '</td>';
+                detail += '<td><span style="display: none;">' + resp.request + '</span><button class="btn btn-xs btn-primary" onclick="ShowModelPopup(this)" data-type="Request Json">View Request</button></td>';
+                detail += '<td><span style="display: none;">' + resp.response + '</span><button class="btn btn-xs btn-primary" onclick="ShowModelPopup(this)" data-type="Response Json">View Response</button></td>';
                 detail += '</tr>';
             });
 
             $('#tablebody').html(detail);
         });
 
-
     });
+
+    function ShowModelPopup(obj) {
+        let title = $(obj).attr("data-type");
+        let content = $(obj).siblings().html();
+        $("#ModalCenter").modal();
+        $("#ModalCenterTitle").text(title);
+        $("#ModalCenterContent").text(content);
+
+    }
 </script>
