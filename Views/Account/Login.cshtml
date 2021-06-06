@@ -1,0 +1,43 @@
+﻿@model RemittanceWebApp.Models.loginModel
+
+@{
+    ViewData["Title"] = "Login";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    AlertModel alertMessage = TempData["AlertMessage"] as AlertModel;
+}
+
+@if (alertMessage != null)
+{
+    <partial name="_AlertView" model="@alertMessage" />
+}
+
+<link href="~/css/loginStyleSheet.css" rel="stylesheet" />
+<!------ Include the above in your HEAD tag ---------->
+
+<div class="wrapper fadeInDown">
+    <div id="formContent">
+
+        <!-- Login Form -->
+        <form asp-action="Login">
+            <div class="form-group">
+                <input type="text" id="login" class="fadeIn second" name="email" placeholder="email">
+            </div>
+            <div class="form-group">
+                <input type="password" id="password" class="fadeIn third" name="password" placeholder="password">
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Login" class="btn btn-primary fadeIn fourth" />
+            </div>
+        </form>
+
+        <!-- Remind Passowrd -->
+        <div id="formFooter">
+            <a class="underlineHover" href="#">Forgot Password?</a>
+        </div>
+
+    </div>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

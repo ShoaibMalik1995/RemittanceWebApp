@@ -1,0 +1,63 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - RemittanceWebApp</title>
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="~/css/site.css" />
+    
+    <style>
+        .h1, h2, h3, h4, h5, h6, .text-primary {
+            color: #1b6ec2 !important;
+        }
+
+        .bg-primary {
+            background-color: #1b6ec2 !important;
+        }
+
+        .nav-link {
+            cursor: pointer !important;
+        }
+
+        .active > a {
+            color: white !important;
+            background-color: #1b6ec2;
+            border-color: #1861ac;
+        }
+    </style>
+</head>
+<body style="max-height: calc(100vh - 60px); overflow: auto;">
+    <header>
+        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-primary bg-primary border-bottom box-shadow mb-3">
+            <div class="col-md-10">
+                <a class="navbar-brand text-white" asp-area="" asp-controller="Home" asp-action="Index">RemittanceApp</a>
+            </div>
+            <div class="col-md-2">
+                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target=".navbar-collapse" aria-controls="navbarSupportedContent"
+                        aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
+                    <partial name="_LoginPartial" />
+                </div>
+            </div>
+        </nav>
+    </header>
+    <div class="container-fluid">
+        <main role="main" style="height: calc(100vh - 100px); overflow:auto;">
+            @RenderBody()
+        </main>
+    </div>
+
+    <footer class="border-top footer text-muted bg-white">
+        <div class="container-fluid text-center">
+            RemittanceApp &copy; @DateTime.Now.Year.ToString() - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
+        </div>
+    </footer>
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="~/js/site.js" asp-append-version="true"></script>
+    @await RenderSectionAsync("Scripts", required: false)
+</body>
+</html>

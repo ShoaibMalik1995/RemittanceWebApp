@@ -1,0 +1,139 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - RemittanceWebApp</title>
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="~/css/site.css" />
+
+    <style type="text/css">
+        .h1, h2, h3, h4, h5, h6, .text-primary {
+            color: #1b6ec2 !important;
+        }
+
+        .bg-primary {
+            background-color: #1b6ec2 !important;
+        }
+
+        .nav-link {
+            cursor: pointer !important;
+        }
+
+        hr {
+            margin-top: 0.4rem;
+            margin-bottom: 0.4rem;
+        }
+
+        .active > a {
+            color: white !important;
+            background-color: #1b6ec2;
+            border-color: #1861ac;
+        }
+
+        .text-ecllipse {
+            overflow: hidden !important;
+            text-overflow: ellipsis !important;
+            display: -webkit-box;
+            -webkit-line-clamp: 2;
+            -webkit-box-orient: vertical;
+        }
+
+        .dropdown-divider {
+            margin: 0;
+        }
+
+        .table-log-div {
+            height: calc(100vh - 339px) !important;
+            overflow: auto;
+        }
+
+        .table-log {
+            height: calc(100vh - 376px) !important;
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-primary bg-primary border-bottom box-shadow mb-3">
+            <div class="col-md-11">
+                <a class="navbar-brand text-white" asp-area="" asp-controller="CardRequest" asp-action="Index">RemittanceApp</a>
+            </div>
+            <div class="col-md-1">
+                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target=".navbar-collapse" aria-controls="navbarSupportedContent"
+                        aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="navbar-collapse collapse d-sm-inline-flex justify-content-end">
+                    <ul class="navbar-nav flex-grow-1">
+                        <li class="nav-item">
+                            <a class="nav-link text-white" asp-area="" asp-controller="Account" asp-action="Login">Logout</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <div class="container-fluid">
+        <div class="row" style="height: calc(100vh - 135px); overflow-y: auto;">
+            <div class="col-md-2 col-sm-12 shadow-sm">
+                <ul class="nav flex-column" id="sidebarMenu">
+                    <li class="nav-item">
+                        <a class="nav-link" asp-area="" asp-controller="CardRequest" asp-action="Index">Card Request</a>
+                    </li>
+                    <li class="dropdown-divider" style="margin: 0;"></li>
+                    <li class="nav-item">
+                        <a class="nav-link" asp-area="" asp-controller="CardTopup" asp-action="Index">Card Topup</a>
+                    </li>
+                    <li class="dropdown-divider" style="margin: 0;"></li>
+                    <li class="nav-item">
+                        <a class="nav-link" asp-area="" asp-controller="CustomerRegisteration" asp-action="Index">Customer Registeration</a>
+                    </li>
+                    <li class="dropdown-divider" style="margin: 0;"></li>
+                    <li class="nav-item">
+                        <a class="nav-link" asp-area="" asp-controller="FCRequest" asp-action="Index">FC Request</a>
+                    </li>
+                    <li class="dropdown-divider" style="margin: 0;"></li>
+                    <li class="nav-item">
+                        <a class="nav-link" asp-area="" asp-controller="OTPSend" asp-action="Index">OTP Send</a>
+                    </li>
+                    <li class="dropdown-divider" style="margin: 0;"></li>
+                    <li class="nav-item">
+                        <a class="nav-link" asp-area="" asp-controller="OTPValidate" asp-action="Index">OTP Validate</a>
+                    </li>
+                    <li class="dropdown-divider" style="margin: 0;"></li>
+                    <li class="nav-item">
+                        <a class="nav-link" asp-area="" asp-controller="RemittanceApprove" asp-action="Index">Remittance Approve</a>
+                    </li>
+                    <li class="dropdown-divider" style="margin: 0;"></li>
+                    <li class="nav-item">
+                        <a class="nav-link" asp-area="" asp-controller="Remittance" asp-action="Index">Remittance</a>
+                    </li>
+                    <li class="dropdown-divider" style="margin: 0;"></li>
+                    <li class="nav-item">
+                        <a class="nav-link" asp-area="" asp-controller="SICreate" asp-action="Index">Standing Integration</a>
+                    </li>
+                    <li class="dropdown-divider" style="margin: 0;"></li>
+                </ul>
+            </div>
+            <div class="col-md-10 col-sm-12 shadow-sm">
+                <main role="main">
+                    @RenderBody()
+                </main>
+            </div>
+        </div>
+    </div>
+
+    <footer class="border-top footer text-muted bg-white">
+        <div class="container-fluid text-center">
+            RemittanceApp &copy; @DateTime.Now.Year.ToString()
+        </div>
+    </footer>
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="~/js/site.js" asp-append-version="true"></script>
+    @await RenderSectionAsync("Scripts", required: false)
+</body>
+</html>

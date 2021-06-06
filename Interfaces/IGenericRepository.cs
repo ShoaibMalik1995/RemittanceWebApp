@@ -1,0 +1,16 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
+
+namespace RemittanceWebApp.Interfaces
+{
+    public interface IGenericRepository<T> where T : class
+    {
+        Task<IEnumerable<T>> GetAll();
+        Task<T> GetById(object id);
+        Task<bool> Insert(T obj);
+        Task<bool> Update(T obj);
+        Task<bool> Delete(object id);
+    }
+}

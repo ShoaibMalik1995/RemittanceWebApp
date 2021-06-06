@@ -1,0 +1,40 @@
+﻿@model RemittanceWebApp.Models.UserRegister
+
+@{
+    ViewData["Title"] = "Register";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    AlertModel alertMessage = TempData["AlertMessage"] as AlertModel;
+}
+
+@if (alertMessage != null)
+{
+    <partial name="_AlertView" model="@alertMessage" />
+}
+
+<link href="~/css/loginStyleSheet.css" rel="stylesheet" />
+<!------ Include the above in your HEAD tag ---------->
+
+<div class="wrapper fadeInDown">
+    <div id="formContent">
+
+        <!-- Register Form -->
+        <form asp-action="Register">
+            <div class="form-group">
+                <input type="text" id="email" class="fadeIn second" name="email" placeholder="email">
+            </div>
+            <div class="form-group">
+                <input type="password" id="password" class="fadeIn third" name="password" placeholder="password">
+            </div>
+            <div class="form-group">
+                <input type="password" id="confirmpassword" class="fadeIn third" name="confirmpassword" placeholder="confirmpassword">
+            </div>
+            <div class="form-group">
+                <input type="submit" class="btn btn-primary fadeIn fourth" value="Register">
+            </div>
+        </form>
+    </div>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

@@ -1,0 +1,4 @@
+﻿@model RemittanceWebApp.Models.DDLModel
+
+<span class="input-group-addon"><span class="glyphicon @Model.GlyphIcon" style="background-color:aliceblue"></span></span>
+@Html.DropDownList(Model.Name, Model.Values, Model.Caption, new { @class = "form-control" })

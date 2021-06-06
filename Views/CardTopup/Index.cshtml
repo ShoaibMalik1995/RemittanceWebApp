@@ -1,0 +1,173 @@
+﻿@model IEnumerable<RemittanceWebApp.Models.CardTopupLog>
+
+@{
+    ViewData["Title"] = "Card Topup Log";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+<h4 class="text-primary">Card Topup Log</h4>
+<div class=" container-fluid shadow-sm pb-1">
+    <form>
+        <div class="form-row">
+            <div class="col-md-4 mb-3">
+                <input type="text" class="form-control" id="txtUserId" placeholder="User Id" value="" maxlength="15" />
+            </div>
+            <div class="col-md-4 mb-3">
+                @Html.DropDownList("ddlChannel", (IEnumerable<SelectListItem>)ViewBag.Channels, "- Select Channel -", new { @class = "form-control" })
+            </div>
+            <div class="col-md-4 mb-3">
+                <input type="text" class="form-control" id="txtProfileNo" placeholder="Profile Number" value="" maxlength="15" />
+            </div>
+        </div>
+        <div class="form-row">
+            <div class="col-md-4 mb-3">
+                <input type="text" class="form-control" id="txtRefNo" placeholder="Ref No" value="" maxlength="15" />
+            </div>
+            <div class="col-md-4 mb-3">
+                <input type="date" class="form-control" id="txtFromDate" placeholder="From Date" value="" maxlength="10" />
+            </div>
+            <div class="col-md-4 mb-3">
+                <input type="date" class="form-control" id="txtToDate" placeholder="To Date" value="" maxlength="15" />
+            </div>
+        </div>
+        <div class="form-row">
+            <button id="btnSearch" class="btn btn-primary float-right" type="button">Search</button>
+        </div>
+    </form>
+</div>
+@*<p>
+    <a asp-action="Create">Create New</a>
+</p>*@
+<hr />
+<div class="container-fluid shadow-sm table-log-div">
+    <table class="table table-responsive table-log">
+        <thead class="thead-light">
+            <tr>
+                <th style="width: 10%">
+                    @Html.DisplayNameFor(model => model.LogDate)
+                </th>
+                <th style="width: 10%">
+                    @Html.DisplayNameFor(model => model.LogTime)
+                </th>
+                <th style="width: 10%">
+                    @Html.DisplayNameFor(model => model.FiscalYear)
+                </th>
+                <th style="width: 10%">
+                    @Html.DisplayNameFor(model => model.Ref_No)
+                </th>
+                <th style="width: 10%">
+                    @Html.DisplayNameFor(model => model.UserId)
+                </th>
+                <th style="width: 10%">
+                    @Html.DisplayNameFor(model => model.ChannelId)
+                </th>
+                <th style="width: 10%">
+                    @Html.DisplayNameFor(model => model.ProfileNumber)
+                </th>
+                <th style="width: 15%">
+                    @Html.DisplayNameFor(model => model.Request)
+                </th>
+                <th style="width: 15%">
+                    @Html.DisplayNameFor(model => model.Response)
+                </th>
+                @*<th></th>*@
+            </tr>
+        </thead>
+        <tbody id="tablebody">
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.LogDate)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.LogTime)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.FiscalYear)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Ref_No)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.UserId)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.ChannelId)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.ProfileNumber)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Request)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Response)
+                    </td>
+                    @*<td>
+                        <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
+                        <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
+                        <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
+                    </td>*@
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<script type="text/javascript">
+    $(function () {
+        var date = new Date();
+        var day = ("0" + date.getDate()).slice(-2);
+        var month = ("0" + (date.getMonth() + 1)).slice(-2);
+
+        var today = date.getFullYear() + "-" + (month) + "-" + (day);
+
+        $('#txtFromDate').val(today);
+        $('#txtToDate').val(today);
+    });
+
+    $('#btnSearch').click(function () {
+        
+        let userId = $('#txtUserId').val();
+        let channelId = $('#ddlChannel').val();
+        let profileNo = $('#txtProfileNo').val();
+        let RefNo = $('#txtRefNo').val();
+        let FromDate = $('#txtFromDate').val();
+        let ToDate = $('#txtToDate').val();
+
+        let detail = "";
+        let _logTime = "";
+        let _ref_No = "";
+        let url = "CardTopup/CardTopupSearch?userId=" + userId + "&channelId=" + channelId + "&profileNo=" + profileNo;
+        url = url + "&RefNo=" + RefNo + "&fromDate=" + FromDate + "&toDate=" + ToDate;
+        $.ajax(
+            {
+                url: url
+            }
+        ).done(function (resp) {
+            $('#tablebody').html(detail);
+
+            $.each(resp, function (i, resp) {
+                _logTime = resp.logTime.hours + ":" + resp.logTime.minutes + ":" + resp.logTime.seconds;
+                _ref_No = resp.ref_No != undefined && resp.ref_No != 'null' ? resp.ref_No : '';
+                detail += '<tr>';
+                detail += '<td>' + new Date(resp.logDate).toLocaleDateString("en-US") + '</td>';
+                detail += '<td>' + _logTime + '</td>';
+                detail += '<td>' + resp.fiscalYear + '</td>';
+                detail += '<td>' + _ref_No + '</td>';
+                detail += '<td>' + resp.userId + '</td>';
+                detail += '<td>' + resp.channelId + '</td>';
+                detail += '<td>' + resp.profileNumber + '</td>';
+                detail += '<td>' + resp.request + '</td>';
+                detail += '<td>' + resp.response + '</td>';
+                detail += '</tr>';
+            });
+
+            $('#tablebody').html(detail);
+        });
+
+
+    });
+</script>
