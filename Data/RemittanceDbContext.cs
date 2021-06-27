@@ -23,6 +23,7 @@ namespace RemittanceWebApp.Data
         public DbSet<RemittanceApproveLog> RemittanceApproveLog { get; set; }
         public DbSet<RemittanceLog> RemittanceLog { get; set; }
         public DbSet<SICreateLog> SICreateLog { get; set; }
+        public DbSet<BeneficiaryLog> BeneficiaryLog { get; set; }
 
     }
 }
